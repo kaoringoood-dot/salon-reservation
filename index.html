@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f4ef">
+<title>Salon Reservation</title>
+<style>
+:root{--bg:#f7f4ef;--card:#fff;--ink:#231f1a;--muted:#756f67;--gold:#b79a61;--line:#e8e0d5;--soft:#f2eadf;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:linear-gradient(180deg,#fbfaf8,var(--bg));color:var(--ink)}
+.wrap{max-width:720px;margin:auto;padding:22px 16px 52px}
+.hero{padding:18px 4px 10px}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--gold);font-weight:700}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:32px;margin:8px 0;font-weight:500}
+.lead{color:var(--muted);line-height:1.7;margin:0}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 10px 30px rgba(40,30,20,.05)}
+.step{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.step span{font-size:12px;padding:7px 10px;border-radius:999px;background:#eee9e2;color:#777}
+.step span.active{background:var(--ink);color:#fff}
+h2{font-size:19px;margin:4px 0 14px}
+label{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+input,select,textarea{width:100%;padding:14px;border:1px solid #d9d0c5;border-radius:13px;background:white;font-size:16px;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}
+.times{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.time{padding:12px 8px;text-align:center;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+.time strong{display:block;font-size:15px}
+.time small{display:block;font-size:11px;margin-top:4px;color:var(--muted)}
+.time.selected{background:var(--ink);color:#fff;border-color:var(--ink)}
+.time.selected small{color:rgba(255,255,255,.85)}
+.time.busy{opacity:.45;pointer-events:none}
+button{width:100%;border:0;border-radius:999px;padding:15px 18px;font-size:16px;font-weight:800;background:var(--ink);color:white;margin-top:16px}
+button.gold{background:var(--gold)}button.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.note{font-size:12px;color:var(--muted);line-height:1.6}
+.summary{background:#fbf7ef;border:1px solid #eadfce;border-radius:16px;padding:15px;line-height:1.8}
+.tag{display:inline-block;font-size:11px;background:var(--soft);padding:4px 8px;border-radius:999px;margin:5px 5px 0 0}
+.hidden{display:none}
+.success{text-align:center;padding:18px 6px}
+.check{width:58px;height:58px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px}
+.loading{opacity:.65;pointer-events:none}
+.error{font-size:13px;color:#8a3d3d;background:#fff3f3;border:1px solid #efd0d0;padding:10px;border-radius:12px;margin-top:10px}
+@media(max-width:560px){h1{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+  <div class="eyebrow">PRIVATE BEAUTY SALON</div>
+  <h1>Salon Reservation</h1>
+  <p class="lead">90分枠でご予約いただけます。メニューはご来店時にご相談ください。</p>
+</section>
+
+<div class="step">
+  <span id="s1" class="active">1 担当・日時</span>
+  <span id="s2">2 お客様情報</span>
+  <span id="s3">3 確認</span>
+</div>
+
+<section id="page1" class="card">
+  <h2>担当スタッフと日時を選ぶ</h2>
+  <p class="note">ベッドは2台のため、同じ時間はサロン全体で最大2名まで。スタッフごとの勤務時間・予定・お休みも自動反映します。</p>
+  <label>担当スタッフ</label>
+  <select id="staff"></select>
+  <p id="staffHours" class="note"></p>
+
+  <label>ご希望日</label>
+  <input type="date" id="date">
+
+  <label>空き時間</label>
+  <div id="times" class="times"></div>
+  <div id="availabilityError"></div>
+
+  <button onclick="next1()">お客様情報へ</button>
+</section>
+
+<section id="page2" class="card hidden">
+  <h2>お客様情報</h2>
+  <label>お名前</label><input id="name" placeholder="例：大島 歌織">
+  <label>電話番号</label><input id="phone" inputmode="tel" placeholder="090-1234-5678">
+  <label>メール（任意）</label><input id="email" inputmode="email" placeholder="example@email.com">
+  <label>ご要望・気になること（任意）</label>
+  <textarea id="memo" placeholder="肌悩み、担当希望、ご相談内容など"></textarea>
+  <button onclick="next2()">予約内容を確認</button>
+  <button class="ghost" onclick="goPage(1)">戻る</button>
+</section>
+
+<section id="page3" class="card hidden">
+  <h2>予約内容の確認</h2>
+  <div id="summary" class="summary"></div>
+  <div id="submitError"></div>
+  <button class="gold" id="confirmBtn" onclick="confirmBooking()">この内容で予約する</button>
+  <button class="ghost" onclick="goPage(2)">修正する</button>
+</section>
+
+<section id="done" class="card hidden success">
+  <div class="check">✓</div>
+  <h2>ご予約を受け付けました</h2>
+  <p class="lead">ありがとうございます。ご来店を楽しみにお待ちしております。</p>
+  <button onclick="resetForm()">別の予約をする</button>
+</section>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://xvgrbzpnwnlqlxayvphv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_QMm_qF4XHbvCRWnSSp2-ig_Fpm74UXK';
+let staffs = [];
+let state = {staffId:null, staffName:'', date:'', slotStart:'', slotEnd:''};
+
+const apiHeaders = {
+  'apikey': SUPABASE_KEY,
+  'Content-Type': 'application/json'
+};
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function fmtTime(t) { return String(t).slice(0,5); }
+function minDate() {
+ const t=new Date(), y=t.getFullYear(), m=String(t.getMonth()+1).padStart(2,'0'), d=String(t.getDate()).padStart(2,'0');
+ return `${y}-${m}-${d}`;
+}
+function setStep(n) {
+ [1,2,3].forEach(i=>document.getElementById('s'+i).classList.toggle('active',i===n));
+}
+function goPage(n) {
+ [1,2,3].forEach(i=>document.getElementById('page'+i).classList.toggle('hidden',i!==n));
+ done.classList.add('hidden'); setStep(n); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function loadStaff() {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/staff?select=id,name,work_start,work_end&active=eq.true&order=id`, {headers:apiHeaders});
+  if(!r.ok) throw new Error('スタッフ情報を読み込めませんでした');
+  staffs = await r.json();
+  staff.innerHTML = staffs.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  if(staffs.length) {
+    state.staffId = Number(staffs[0].id);
+    state.staffName = staffs[0].name;
+    updateStaffHours();
+    await loadAvailability();
+  }
+}
+
+function updateStaffHours() {
+  const s = staffs.find(x=>Number(x.id)===Number(staff.value));
+  if(!s) return;
+  state.staffId=Number(s.id); state.staffName=s.name;
+  staffHours.textContent = `${s.name}：${fmtTime(s.work_start)}〜${fmtTime(s.work_end)}勤務`;
+}
+
+async function loadAvailability() {
+  availabilityError.innerHTML='';
+  times.innerHTML='<div class="note">空き時間を読み込み中...</div>';
+  updateStaffHours();
+  state.date=date.value; state.slotStart=''; state.slotEnd='';
+
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_availability`, {
+    method:'POST', headers:apiHeaders,
+    body:JSON.stringify({p_date:state.date,p_staff_id:state.staffId})
+  });
+  if(!r.ok) {
+    times.innerHTML='';
+    availabilityError.innerHTML='<div class="error">空き時間を読み込めませんでした。もう一度お試しください。</div>';
+    return;
+  }
+  const rows = await r.json();
+  times.innerHTML='';
+  if(!rows.length) {
+    times.innerHTML='<div class="note">この日の予約可能枠はありません。</div>';
+    return;
+  }
+  rows.forEach(x=>{
+    const full=Number(x.total_bookings)>=2;
+    const unavailable=full || x.staff_booked || x.blocked;
+    const div=document.createElement('div');
+    div.className='time'+(unavailable?' busy':'');
+    let status = x.blocked ? '✕ 予約不可' : x.staff_booked ? '✕ 担当予約あり' : full ? '満席' : Number(x.total_bookings)===1 ? '残り1枠' : '残り2枠';
+    div.innerHTML=`<strong>${fmtTime(x.slot_start)}〜${fmtTime(x.slot_end)}</strong><small>${status}</small>`;
+    if(!unavailable) {
+      div.onclick=()=>{
+        document.querySelectorAll('.time').forEach(e=>e.classList.remove('selected'));
+        div.classList.add('selected');
+        state.slotStart=x.slot_start; state.slotEnd=x.slot_end;
+      };
+    }
+    times.appendChild(div);
+  });
+}
+
+function next1() {
+  if(!state.staffId || !date.value || !state.slotStart) { alert('担当スタッフ・日付・時間を選んでください'); return; }
+  state.date=date.value; goPage(2);
+}
+function next2() {
+  if(!name.value.trim() || !phone.value.trim()) { alert('お名前と電話番号を入力してください'); return; }
+  summary.innerHTML =
+    `<b>90分予約枠</b><br>担当：${esc(state.staffName)}<br>${esc(state.date)} ${fmtTime(state.slotStart)}〜${fmtTime(state.slotEnd)}<br>`+
+    `<span class="tag">メニューは来店時に決定</span><br><br>`+
+    `お名前：${esc(name.value)}<br>電話：${esc(phone.value)}<br>`+
+    (email.value?`メール：${esc(email.value)}<br>`:'')+
+    (memo.value?`ご要望：${esc(memo.value)}`:'');
+  goPage(3);
+}
+
+async function confirmBooking() {
+  submitError.innerHTML='';
+  confirmBtn.disabled=true; confirmBtn.textContent='予約しています…';
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/create_booking`, {
+    method:'POST', headers:apiHeaders,
+    body:JSON.stringify({
+      p_date:state.date,
+      p_slot_start:state.slotStart,
+      p_staff_id:state.staffId,
+      p_customer_name:name.value.trim(),
+      p_phone:phone.value.trim(),
+      p_email:email.value.trim() || null,
+      p_memo:memo.value.trim() || null
+    })
+  });
+  confirmBtn.disabled=false; confirmBtn.textContent='この内容で予約する';
+  if(!r.ok) {
+    let msg='予約できませんでした。空き状況が変わった可能性があります。';
+    try { const e=await r.json(); if(e.message) msg=e.message; } catch(e) {}
+    submitError.innerHTML=`<div class="error">${esc(msg)}</div>`;
+    return;
+  }
+  page3.classList.add('hidden'); done.classList.remove('hidden');
+}
+
+function resetForm() {
+ name.value='';phone.value='';email.value='';memo.value='';
+ date.value=minDate(); state.slotStart='';state.slotEnd='';
+ goPage(1); loadAvailability();
+}
+
+date.min=minDate(); date.value=minDate();
+staff.addEventListener('change', loadAvailability);
+date.addEventListener('change', loadAvailability);
+
+loadStaff().catch(err=>{
+  availabilityError.innerHTML=`<div class="error">${esc(err.message)}</div>`;
+});
+</script>
+</body>
+</html>
