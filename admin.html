@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f4ef">
+<title>Salon Admin</title>
+<style>
+:root{--bg:#f7f4ef;--card:#fff;--ink:#231f1a;--muted:#756f67;--gold:#b79a61;--line:#e8e0d5;--soft:#f2eadf;--danger:#9b4c4c}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:var(--bg);color:var(--ink)}.wrap{max-width:820px;margin:auto;padding:20px 14px 60px}h1{font-family:Georgia,serif;font-weight:500;margin:8px 0}.eyebrow{font-size:12px;letter-spacing:.15em;color:var(--gold);font-weight:700}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 8px 24px rgba(40,30,20,.05)}h2{font-size:18px;margin:4px 0 12px}label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #d9d0c5;border-radius:12px;background:#fff;font-size:16px}textarea{min-height:72px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.tabs button{margin:0;padding:11px 6px;font-size:13px}.hidden{display:none!important}button{width:100%;border:0;border-radius:999px;padding:13px 15px;font-size:15px;font-weight:800;background:var(--ink);color:#fff;margin-top:12px}button.gold{background:var(--gold)}button.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}button.danger{background:#fff;color:var(--danger);border:1px solid #e1c3c3}.note{font-size:12px;color:var(--muted);line-height:1.6}.error{font-size:13px;color:#8a3d3d;background:#fff3f3;border:1px solid #efd0d0;padding:10px;border-radius:12px;margin-top:10px}.ok{font-size:13px;color:#486c4a;background:#f1f7f1;border:1px solid #d1e2d1;padding:10px;border-radius:12px;margin-top:10px}.booking{border-top:1px solid var(--line);padding:14px 0}.booking:first-child{border-top:0}.bookingHead{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.tag{display:inline-block;font-size:11px;background:var(--soft);padding:4px 8px;border-radius:999px;margin:2px}.cancelled{opacity:.48}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button{margin-top:8px}.block{border-top:1px solid var(--line);padding:12px 0}.block:first-child{border-top:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px}.topbar button{width:auto;margin:0;padding:9px 14px;font-size:12px}.modal{position:fixed;inset:0;background:rgba(20,18,16,.55);display:flex;align-items:flex-end;justify-content:center;padding:0;z-index:10}.modalBox{background:#fff;width:100%;max-width:820px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px}.close{float:right;width:auto;margin:0;padding:7px 11px;background:#eee;color:#333}@media(max-width:560px){.grid{grid-template-columns:1fr}.tabs{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topbar"><div><div class="eyebrow">SALON STAFF ONLY</div><h1>予約管理</h1></div><button id="logoutBtn" class="ghost hidden" onclick="logout()">ログアウト</button></div>
+
+<section id="login" class="card">
+<h2>スタッフログイン</h2>
+<p class="note">管理パスワードを入力してください。この端末ではタブを閉じるまで保持します。</p>
+<label>管理パスワード</label><input id="password" type="password" autocomplete="current-password">
+<div id="loginMsg"></div><button onclick="login()">ログイン</button>
+</section>
+
+<div id="app" class="hidden">
+<div class="tabs"><button onclick="showTab('reservations')">予約一覧</button><button onclick="showTab('blocks')">休み設定</button><button onclick="showTab('settings')">設定</button></div>
+
+<section id="reservations" class="card">
+<h2>予約一覧</h2>
+<div class="grid"><div><label>開始日</label><input id="fromDate" type="date"></div><div><label>終了日</label><input id="toDate" type="date"></div></div>
+<button class="ghost" onclick="loadBookings()">表示を更新</button><div id="bookingsMsg"></div><div id="bookingList"></div>
+</section>
+
+<section id="blocks" class="card hidden">
+<h2>予約を ✕ にする</h2>
+<label>日付</label><input id="blockDate" type="date">
+<label>対象</label><select id="blockStaff"></select>
+<label>設定</label><select id="blockType" onchange="toggleBlockSlot()"><option value="slot">時間枠だけ予約✕</option><option value="day">1日お休み</option></select>
+<div id="slotWrap"><label>時間</label><select id="blockSlot"><option value="10:00:00|11:30:00">10:00〜11:30</option><option value="11:30:00|13:00:00">11:30〜13:00</option><option value="13:00:00|14:30:00">13:00〜14:30</option><option value="14:30:00|16:00:00">14:30〜16:00</option><option value="16:00:00|17:30:00">16:00〜17:30</option><option value="17:30:00|19:00:00">17:30〜19:00</option><option value="19:00:00|20:30:00">19:00〜20:30</option></select></div>
+<label>理由（任意）</label><input id="blockReason" maxlength="120" placeholder="例：外出・研修・お休み">
+<div id="blockMsg"></div><button class="gold" onclick="addBlock()">予約✕にする</button>
+<h2 style="margin-top:24px">設定済み</h2><button class="ghost" onclick="loadBlocks()">一覧を更新</button><div id="blockList"></div>
+</section>
+
+<section id="settings" class="card hidden">
+<h2>管理パスワード変更</h2><p class="note">10文字以上で設定してください。</p>
+<label>新しいパスワード</label><input id="newPassword" type="password">
+<div id="passwordMsg"></div><button onclick="changePassword()">パスワードを変更</button>
+</section>
+</div>
+</div>
+
+<div id="modal" class="modal hidden"><div class="modalBox"><button class="close" onclick="closeModal()">閉じる</button><h2>予約を編集</h2><input id="editId" type="hidden"><label>日付</label><input id="editDate" type="date"><label>時間</label><select id="editSlot"><option value="10:00:00">10:00〜11:30</option><option value="11:30:00">11:30〜13:00</option><option value="13:00:00">13:00〜14:30</option><option value="14:30:00">14:30〜16:00</option><option value="16:00:00">16:00〜17:30</option><option value="17:30:00">17:30〜19:00</option><option value="19:00:00">19:00〜20:30</option></select><label>担当</label><select id="editStaff"></select><label>お名前</label><input id="editName"><label>電話</label><input id="editPhone"><label>メール</label><input id="editEmail"><label>メモ</label><textarea id="editMemo"></textarea><label>状態</label><select id="editStatus"><option value="confirmed">予約確定</option><option value="cancelled">キャンセル</option></select><div id="editMsg"></div><button class="gold" onclick="saveEdit()">変更を保存</button></div></div>
+
+<script>
+const API='https://xvgrbzpnwnlqlxayvphv.supabase.co/functions/v1/salon-api';const $=id=>document.getElementById(id);let staff=[],bookings=[];
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function fmt(t){return String(t||'').slice(0,5)}function day(offset=0){const d=new Date();d.setDate(d.getDate()+offset);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}function pw(){return sessionStorage.getItem('salonAdminPassword')||''}
+async function call(action,data={}){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','x-admin-password':pw()},body:JSON.stringify({action,...data})});let j={};try{j=await r.json()}catch{}if(!r.ok)throw new Error(j.error||'通信エラー');return j}
+function msg(id,text,ok=false){$(id).innerHTML=text?`<div class="${ok?'ok':'error'}">${esc(text)}</div>`:''}
+async function login(){sessionStorage.setItem('salonAdminPassword',$('password').value);try{await call('admin_verify');$('login').classList.add('hidden');$('app').classList.remove('hidden');$('logoutBtn').classList.remove('hidden');msg('loginMsg','');await Promise.all([loadBookings(),loadBlocks()])}catch(e){sessionStorage.removeItem('salonAdminPassword');msg('loginMsg',e.message)}}
+function logout(){sessionStorage.removeItem('salonAdminPassword');location.reload()}
+function showTab(id){['reservations','blocks','settings'].forEach(x=>$(x).classList.toggle('hidden',x!==id))}
+async function loadBookings(){try{msg('bookingsMsg','');const j=await call('admin_bookings',{from:$('fromDate').value,to:$('toDate').value});bookings=j.data||[];staff=j.staff||[];renderStaff();renderBookings()}catch(e){msg('bookingsMsg',e.message)}}
+function renderStaff(){const opts=staff.filter(s=>s).map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');$('editStaff').innerHTML=opts;$('blockStaff').innerHTML='<option value="">サロン全体</option>'+opts}
+function staffName(id){return staff.find(s=>Number(s.id)===Number(id))?.name||'未設定'}
+function renderBookings(){if(!bookings.length){$('bookingList').innerHTML='<p class="note">この期間の予約はありません。</p>';return}$('bookingList').innerHTML=bookings.map(b=>`<div class="booking ${b.status==='cancelled'?'cancelled':''}"><div class="bookingHead"><div><b>${esc(b.booking_date)} ${fmt(b.slot_start)}〜${fmt(b.slot_end)}</b><br><span class="tag">${esc(staffName(b.staff_id))}</span><span class="tag">${b.status==='cancelled'?'キャンセル':'予約確定'}</span></div></div><p><b>${esc(b.customer_name)}</b><br>${esc(b.phone)}${b.email?'<br>'+esc(b.email):''}${b.memo?'<br>メモ：'+esc(b.memo):''}</p><div class="actions"><button class="ghost" onclick="openEdit(${b.id})">編集</button>${b.status==='confirmed'?`<button class="danger" onclick="cancelBooking(${b.id})">キャンセル</button>`:'<span></span>'}</div></div>`).join('')}
+function openEdit(id){const b=bookings.find(x=>Number(x.id)===Number(id));if(!b)return;$('editId').value=b.id;$('editDate').value=b.booking_date;$('editSlot').value=b.slot_start;$('editStaff').value=b.staff_id;$('editName').value=b.customer_name;$('editPhone').value=b.phone;$('editEmail').value=b.email||'';$('editMemo').value=b.memo||'';$('editStatus').value=b.status;msg('editMsg','');$('modal').classList.remove('hidden')}
+function closeModal(){$('modal').classList.add('hidden')}
+async function saveEdit(){try{await call('admin_update_booking',{id:Number($('editId').value),date:$('editDate').value,slot_start:$('editSlot').value,staff_id:Number($('editStaff').value),customer_name:$('editName').value,phone:$('editPhone').value,email:$('editEmail').value,memo:$('editMemo').value,status:$('editStatus').value});msg('editMsg','保存しました',true);await loadBookings();setTimeout(closeModal,500)}catch(e){msg('editMsg',e.message)}}
+async function cancelBooking(id){if(!confirm('この予約をキャンセルにしますか？'))return;try{await call('admin_cancel_booking',{id});await loadBookings()}catch(e){alert(e.message)}}
+function toggleBlockSlot(){$('slotWrap').classList.toggle('hidden',$('blockType').value==='day')}
+async function addBlock(){try{const all=$('blockType').value==='day';const parts=$('blockSlot').value.split('|');await call('admin_add_block',{block_date:$('blockDate').value,staff_id:$('blockStaff').value||null,all_day:all,slot_start:all?null:parts[0],slot_end:all?null:parts[1],reason:$('blockReason').value});msg('blockMsg','予約✕を設定しました',true);$('blockReason').value='';await loadBlocks()}catch(e){msg('blockMsg',e.message)}}
+async function loadBlocks(){try{const j=await call('admin_blocks',{from:$('fromDate').value,to:$('toDate').value});if(j.staff?.length){staff=j.staff.map(s=>({...s}));renderStaff()}const arr=j.data||[];$('blockList').innerHTML=arr.length?arr.map(x=>`<div class="block"><b>${esc(x.block_date)} / ${x.staff_id?esc(staffName(x.staff_id)):'サロン全体'}</b><br><span class="note">${x.all_day?'終日お休み':fmt(x.slot_start)+'〜'+fmt(x.slot_end)}${x.reason?' ・ '+esc(x.reason):''}</span><button class="danger" onclick="removeBlock(${x.id})">解除</button></div>`).join(''):'<p class="note">設定はありません。</p>'}catch(e){$('blockList').innerHTML=`<div class="error">${esc(e.message)}</div>`}}
+async function removeBlock(id){if(!confirm('この予約✕設定を解除しますか？'))return;try{await call('admin_remove_block',{id});await loadBlocks()}catch(e){alert(e.message)}}
+async function changePassword(){try{await call('admin_change_password',{new_password:$('newPassword').value});sessionStorage.setItem('salonAdminPassword',$('newPassword').value);$('newPassword').value='';msg('passwordMsg','変更しました',true)}catch(e){msg('passwordMsg',e.message)}}
+$('fromDate').value=day(0);$('toDate').value=day(30);$('blockDate').value=day(0);$('blockDate').min=day(0);if(pw()){call('admin_verify').then(()=>{ $('login').classList.add('hidden');$('app').classList.remove('hidden');$('logoutBtn').classList.remove('hidden');loadBookings();loadBlocks() }).catch(()=>sessionStorage.removeItem('salonAdminPassword'))}
+</script>
+</body></html>
