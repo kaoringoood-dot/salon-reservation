@@ -9,25 +9,33 @@
 <style>
 :root{
   --tiffany:#81D8D0;
-  --tiffany-deep:#58bdb4;
+  --deep:#58bdb4;
   --gold:#b9975b;
-  --gold-soft:#d8c08e;
   --off:#fbf8f0;
-  --white:#fffdfa;
   --ink:#2d2a27;
   --muted:#777069;
   --line:#e8e0d2;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
   color:var(--ink);
   background:
-    radial-gradient(circle at 90% 0,rgba(129,216,208,.24),transparent 32%),
-    linear-gradient(180deg,#fff,var(--off));
+    radial-gradient(
+      circle at 90% 0,
+      rgba(129,216,208,.24),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      #fff,
+      var(--off)
+    );
 }
 
 .wrap{
@@ -48,12 +56,18 @@ body{
   display:grid;
   place-items:center;
   margin:0 auto 14px;
-  border:1px solid var(--gold-soft);
-  background:linear-gradient(145deg,var(--tiffany),#a8e8e1);
-  color:white;
+  border:1px solid #d8c08e;
+  background:linear-gradient(
+    145deg,
+    var(--tiffany),
+    #a8e8e1
+  );
+  color:#fff;
   font-family:Georgia,serif;
   font-size:25px;
-  box-shadow:0 12px 30px rgba(88,189,180,.18);
+  box-shadow:
+    0 12px 30px
+    rgba(88,189,180,.18);
 }
 
 .eyebrow{
@@ -67,7 +81,6 @@ h1{
   font-family:Georgia,"Times New Roman",serif;
   font-weight:400;
   font-size:34px;
-  letter-spacing:.03em;
   margin:10px 0 5px;
 }
 
@@ -75,7 +88,12 @@ h1{
   width:84px;
   height:1px;
   margin:16px auto;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
 }
 
 .lead{
@@ -100,17 +118,22 @@ h1{
 }
 
 .steps span.active{
-  background:var(--tiffany-deep);
-  box-shadow:0 0 0 4px rgba(129,216,208,.22);
+  background:var(--deep);
+  box-shadow:
+    0 0 0 4px
+    rgba(129,216,208,.22);
 }
 
 .card{
-  background:rgba(255,253,250,.96);
+  background:
+    rgba(255,253,250,.97);
   border:1px solid var(--line);
   border-radius:26px;
   padding:22px;
   margin:14px 0;
-  box-shadow:0 18px 50px rgba(68,55,39,.07);
+  box-shadow:
+    0 18px 50px
+    rgba(68,55,39,.07);
 }
 
 h2{
@@ -118,7 +141,6 @@ h2{
   text-align:center;
   font-weight:500;
   font-size:20px;
-  letter-spacing:.04em;
   margin:2px 0 20px;
 }
 
@@ -126,12 +148,13 @@ label{
   display:block;
   font-size:12px;
   font-weight:700;
-  letter-spacing:.04em;
   margin:15px 0 7px;
   color:#5f5850;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:14px 15px;
   border:1px solid var(--line);
@@ -145,8 +168,10 @@ input,select,textarea{
 input:focus,
 select:focus,
 textarea:focus{
-  border-color:var(--tiffany-deep);
-  box-shadow:0 0 0 3px rgba(129,216,208,.18);
+  border-color:var(--deep);
+  box-shadow:
+    0 0 0 3px
+    rgba(129,216,208,.18);
 }
 
 textarea{
@@ -161,7 +186,7 @@ textarea{
 }
 
 .time{
-  padding:13px 8px;
+  padding:15px 8px;
   text-align:center;
   border:1px solid var(--line);
   border-radius:14px;
@@ -171,7 +196,8 @@ textarea{
 
 .time strong{
   display:block;
-  font-size:14px;
+  font-size:17px;
+  font-weight:700;
 }
 
 .time small{
@@ -182,10 +208,16 @@ textarea{
 }
 
 .time.selected{
-  background:linear-gradient(135deg,var(--tiffany),var(--tiffany-deep));
-  border-color:var(--tiffany-deep);
+  background:linear-gradient(
+    135deg,
+    var(--tiffany),
+    var(--deep)
+  );
+  border-color:var(--deep);
   color:#fff;
-  box-shadow:0 10px 22px rgba(88,189,180,.2);
+  box-shadow:
+    0 10px 22px
+    rgba(88,189,180,.2);
 }
 
 .time.selected small{
@@ -206,9 +238,12 @@ button{
   margin-top:18px;
   font-size:15px;
   font-weight:800;
-  letter-spacing:.04em;
   color:#fff;
-  background:linear-gradient(135deg,var(--gold),#a98547);
+  background:linear-gradient(
+    135deg,
+    var(--gold),
+    #a98547
+  );
 }
 
 button.ghost{
@@ -236,7 +271,9 @@ button:disabled{
     rgba(129,216,208,.12),
     rgba(255,255,255,.8)
   );
-  border:1px solid rgba(88,189,180,.25);
+  border:
+    1px solid
+    rgba(88,189,180,.25);
   font-size:12px;
   line-height:1.85;
   color:#665f58;
@@ -286,8 +323,9 @@ button:disabled{
   font-size:28px;
   border:2px solid white;
   box-shadow:
-    0 0 0 1px var(--gold-soft),
-    0 10px 24px rgba(88,189,180,.22);
+    0 0 0 1px #d8c08e,
+    0 10px 24px
+    rgba(88,189,180,.22);
 }
 
 .footer{
@@ -304,9 +342,17 @@ button:disabled{
 }
 
 @media(max-width:560px){
-  h1{font-size:30px}
-  .card{padding:19px 16px}
-  .wrap{padding-top:18px}
+  h1{
+    font-size:30px;
+  }
+
+  .card{
+    padding:19px 16px;
+  }
+
+  .wrap{
+    padding-top:18px;
+  }
 }
 </style>
 </head>
@@ -316,155 +362,295 @@ button:disabled{
 <div class="wrap">
 
 <section class="hero">
-  <div class="logo">R</div>
-  <div class="eyebrow">PRIVATE BEAUTY SALON</div>
-  <h1>Salon Reservation</h1>
+
+  <div class="logo">
+    R
+  </div>
+
+  <div class="eyebrow">
+    PRIVATE BEAUTY SALON
+  </div>
+
+  <h1>
+    Salon Reservation
+  </h1>
+
   <div class="goldline"></div>
+
   <p class="lead">
     心ほどける美容時間を、あなたのペースで。<br>
     24時間いつでもご予約いただけます。
   </p>
+
 </section>
+
 
 <div class="steps">
-  <span id="s1" class="active"></span>
+
+  <span
+    id="s1"
+    class="active"
+  ></span>
+
   <span id="s2"></span>
+
   <span id="s3"></span>
+
 </div>
 
-<section id="page1" class="card">
 
-  <h2>ご希望の日時</h2>
+<section
+  id="page1"
+  class="card"
+>
 
-  <label>担当スタッフ</label>
-  <select id="staff"></select>
-
-  <p id="staffHours" class="note"></p>
-
-  <label>ご希望日</label>
-  <input type="date" id="date">
-
-  <label>空き時間</label>
-  <div id="times" class="times"></div>
-
-  <div id="availabilityError"></div>
-
-  <div class="info">
-    <b>ご予約について</b><br>
-    ご予約枠は1時間です。<br>
-    ご予約後の1時間は、カウンセリング・準備時間として確保しております。<br><br>
-
-    サロンは2ベッドのため、
-    同時間帯のご案内は最大2名様までとなります。<br><br>
-
-    ご予約の変更・キャンセルは、
-    <b>前日までにご連絡</b>いただけますと幸いです。
-  </div>
-
-  <button onclick="next1()">お客様情報へ</button>
-
-</section>
+<h2>
+  ご希望の日時
+</h2>
 
 
-<section id="page2" class="card hidden">
+<label>
+  担当スタッフ
+</label>
 
-  <h2>お客様情報</h2>
+<select id="staff"></select>
 
-  <label>お名前</label>
-  <input
-    id="name"
-    maxlength="80"
-    autocomplete="name"
-    placeholder="例：山田 花子"
-  >
-
-  <label>電話番号</label>
-  <input
-    id="phone"
-    maxlength="30"
-    inputmode="tel"
-    autocomplete="tel"
-    placeholder="090-1234-5678"
-  >
-
-  <label>メール（任意）</label>
-  <input
-    id="email"
-    maxlength="120"
-    inputmode="email"
-    autocomplete="email"
-    placeholder="example@email.com"
-  >
-
-  <label>ご要望・気になること（任意）</label>
-  <textarea
-    id="memo"
-    maxlength="500"
-    placeholder="肌悩み、ご相談内容など"
-  ></textarea>
-
-  <p class="note">
-    ご入力情報は予約管理のために使用します。
-  </p>
-
-  <button onclick="next2()">予約内容を確認</button>
-
-  <button class="ghost" onclick="goPage(1)">
-    戻る
-  </button>
-
-</section>
+<p
+  id="staffHours"
+  class="note"
+></p>
 
 
-<section id="page3" class="card hidden">
+<label>
+  ご希望日
+</label>
 
-  <h2>ご予約内容の確認</h2>
+<input
+  type="date"
+  id="date"
+>
 
-  <div id="summary" class="summary"></div>
 
-  <div class="info">
-    変更・キャンセルは
-    <b>前日まで</b>
-    にご連絡をお願いいたします。
-  </div>
+<label>
+  ご希望時間
+</label>
 
-  <div id="submitError"></div>
+<div
+  id="times"
+  class="times"
+></div>
 
-  <button id="confirmBtn" onclick="confirmBooking()">
-    この内容で予約する
-  </button>
+<div id="availabilityError"></div>
 
-  <button class="ghost" onclick="goPage(2)">
-    修正する
-  </button>
+
+<div class="info">
+
+<b>
+  ご予約について
+</b>
+
+<br>
+
+表示されている時刻が
+ご予約開始時間です。
+
+<br>
+
+ご予約開始から
+<b>
+2時間のお時間を確保
+</b>
+いたします。
+
+<br>
+
+例：10時〜のご予約の場合、
+10時〜12時を確保し、
+次のご予約は12時〜となります。
+
+<br><br>
+
+サロンは2ベッドのため、
+同時間帯のご案内は
+<b>
+最大2名様まで
+</b>
+です。
+
+<br>
+
+ご予約の変更・キャンセルは
+<b>
+前日までにご連絡
+</b>
+ください。
+
+</div>
+
+
+<button onclick="next1()">
+  お客様情報へ
+</button>
 
 </section>
 
 
-<section id="done" class="card hidden success">
+<section
+  id="page2"
+  class="card hidden"
+>
 
-  <div class="check">✓</div>
+<h2>
+  お客様情報
+</h2>
 
-  <h2>ご予約を承りました</h2>
 
-  <p class="lead">
-    ありがとうございます。<br>
-    ご来店を心よりお待ちしております。
-  </p>
+<label>
+  お名前
+</label>
 
-  <div class="info">
-    ご予約の変更・キャンセルは
-    前日までにご連絡ください。
-  </div>
+<input
+  id="name"
+  maxlength="80"
+  autocomplete="name"
+  placeholder="例：山田 花子"
+>
 
-  <button onclick="resetForm()">
-    別の予約をする
-  </button>
+
+<label>
+  電話番号
+</label>
+
+<input
+  id="phone"
+  maxlength="30"
+  inputmode="tel"
+  autocomplete="tel"
+  placeholder="090-1234-5678"
+>
+
+
+<label>
+  メール（任意）
+</label>
+
+<input
+  id="email"
+  maxlength="120"
+  inputmode="email"
+  autocomplete="email"
+  placeholder="example@email.com"
+>
+
+
+<label>
+  ご要望・気になること（任意）
+</label>
+
+<textarea
+  id="memo"
+  maxlength="500"
+  placeholder="肌悩み、ご相談内容など"
+></textarea>
+
+
+<button onclick="next2()">
+  予約内容を確認
+</button>
+
+<button
+  class="ghost"
+  onclick="goPage(1)"
+>
+  戻る
+</button>
 
 </section>
+
+
+<section
+  id="page3"
+  class="card hidden"
+>
+
+<h2>
+  ご予約内容の確認
+</h2>
+
+<div
+  id="summary"
+  class="summary"
+></div>
+
+
+<div class="info">
+
+ご予約開始から
+2時間を確保いたします。
+
+変更・キャンセルは
+
+<b>
+前日まで
+</b>
+
+にご連絡ください。
+
+</div>
+
+
+<div id="submitError"></div>
+
+
+<button
+  id="confirmBtn"
+  onclick="confirmBooking()"
+>
+  この内容で予約する
+</button>
+
+
+<button
+  class="ghost"
+  onclick="goPage(2)"
+>
+  修正する
+</button>
+
+</section>
+
+
+<section
+  id="done"
+  class="card hidden success"
+>
+
+<div class="check">
+  ✓
+</div>
+
+<h2>
+  ご予約を承りました
+</h2>
+
+<p class="lead">
+  ありがとうございます。<br>
+  ご来店を心よりお待ちしております。
+</p>
+
+<button onclick="resetForm()">
+  別の予約をする
+</button>
+
+</section>
+
 
 <div class="footer">
-  <a href="admin.html">STAFF ADMIN</a>
+
+<a href="admin.html">
+  STAFF ADMIN
+</a>
+
 </div>
 
 </div>
@@ -475,500 +661,793 @@ button:disabled{
 const API =
 'https://xvgrbzpnwnlqlxayvphv.supabase.co/functions/v1/salon-api';
 
+
 let staffs = [];
 
+
 let state = {
+
   staffId:null,
+
   staffName:'',
+
   date:'',
+
   slotStart:'',
+
   slotEnd:''
+
 };
 
-const $ = id => document.getElementById(id);
+
+const $ =
+id =>
+document.getElementById(id);
 
 
 function esc(s){
 
-  return String(s ?? '').replace(
-    /[&<>"']/g,
-    m => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[m])
-  );
+return String(
+  s ?? ''
+)
+.replace(
+  /[&<>"']/g,
+  m => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#039;'
+  }[m])
+);
 
 }
 
 
 function fmt(t){
 
-  return String(t || '').slice(0,5);
+return String(
+  t || ''
+).slice(
+  0,
+  5
+);
+
+}
+
+
+function hourLabel(t){
+
+return (
+  String(
+    Number(
+      String(t)
+      .slice(
+        0,
+        2
+      )
+    )
+  )
+  +
+  '時〜'
+);
+
+}
+
+
+function finalReception(
+  workEnd
+){
+
+let h =
+Number(
+  String(workEnd)
+  .slice(
+    0,
+    2
+  )
+)
+-
+2;
+
+if(
+  h < 0
+){
+  h += 24;
+}
+
+return (
+  h
+  +
+  '時'
+);
 
 }
 
 
 function today(){
 
-  const d = new Date();
+const d =
+new Date();
 
-  return (
-    d.getFullYear() +
-    '-' +
-    String(d.getMonth()+1).padStart(2,'0') +
-    '-' +
-    String(d.getDate()).padStart(2,'0')
-  );
+return (
+  d.getFullYear()
+  +
+  '-'
+  +
+  String(
+    d.getMonth()+1
+  )
+  .padStart(
+    2,
+    '0'
+  )
+  +
+  '-'
+  +
+  String(
+    d.getDate()
+  )
+  .padStart(
+    2,
+    '0'
+  )
+);
 
 }
 
 
-async function call(action,data={}){
+async function call(
+  action,
+  data={}
+){
 
-  const r = await fetch(
-    API,
-    {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
+const r =
+await fetch(
+  API,
+  {
+    method:'POST',
+
+    headers:{
+      'Content-Type':
+      'application/json'
+    },
+
+    body:
+    JSON.stringify(
+      {
         action,
         ...data
-      })
-    }
+      }
+    )
+  }
+);
+
+let j = {};
+
+try{
+
+  j =
+  await r.json();
+
+}catch{}
+
+
+if(
+  !r.ok
+){
+
+  throw new Error(
+    j.error
+    ||
+    '通信エラーが発生しました'
   );
 
-  let j = {};
+}
 
-  try{
-    j = await r.json();
-  }catch{}
-
-  if(!r.ok){
-    throw new Error(
-      j.error || '通信エラーが発生しました'
-    );
-  }
-
-  return j;
+return j;
 
 }
 
 
 function goPage(n){
 
-  [1,2,3].forEach(i => {
+[
+  1,
+  2,
+  3
+]
+.forEach(
+  i => {
 
-    $('page'+i).classList.toggle(
+    $('page'+i)
+    .classList
+    .toggle(
       'hidden',
       i !== n
     );
 
-    $('s'+i).classList.toggle(
+    $('s'+i)
+    .classList
+    .toggle(
       'active',
       i === n
     );
 
-  });
+  }
+);
 
-  $('done').classList.add('hidden');
+$('done')
+.classList
+.add(
+  'hidden'
+);
 
-  scrollTo({
+scrollTo(
+  {
     top:0,
     behavior:'smooth'
-  });
+  }
+);
 
 }
 
 
 async function loadStaff(){
 
-  const j = await call('staff');
+const j =
+await call(
+  'staff'
+);
 
-  staffs = j.data || [];
+staffs =
+j.data
+||
+[];
 
-  $('staff').innerHTML =
-    staffs.map(
-      s =>
-      `<option value="${s.id}">
-        ${esc(s.name)}
-      </option>`
-    ).join('');
 
-  if(!staffs.length){
+$('staff').innerHTML =
 
-    throw new Error(
-      '予約受付中のスタッフがいません'
-    );
+staffs
+.map(
+  s =>
+  `<option value="${s.id}">
+    ${esc(s.name)}
+  </option>`
+)
+.join('');
 
-  }
 
-  state.staffId =
-    Number(staffs[0].id);
+if(
+  !staffs.length
+){
 
-  state.staffName =
-    staffs[0].name;
+throw new Error(
+  '予約受付中のスタッフがいません'
+);
 
-  await loadAvailability();
+}
+
+
+state.staffId =
+Number(
+  staffs[0].id
+);
+
+state.staffName =
+staffs[0].name;
+
+
+await loadAvailability();
 
 }
 
 
 function updateStaff(){
 
-  const s =
-    staffs.find(
-      x =>
-      Number(x.id) ===
-      Number($('staff').value)
-    );
+const s =
 
-  if(!s) return;
+staffs.find(
+  x =>
+  Number(x.id)
+  ===
+  Number(
+    $('staff').value
+  )
+);
 
-  state.staffId =
-    Number(s.id);
 
-  state.staffName =
-    s.name;
+if(!s){
+  return;
+}
 
-  $('staffHours').textContent =
-    `受付時間 ${fmt(s.work_start)}〜${fmt(s.work_end)}`;
+
+state.staffId =
+Number(
+  s.id
+);
+
+state.staffName =
+s.name;
+
+
+$('staffHours')
+.textContent =
+
+`最終受付 ${finalReception(s.work_end)}`;
 
 }
 
 
 async function loadAvailability(){
 
-  try{
+try{
 
-    $('availabilityError').innerHTML = '';
+$('availabilityError')
+.innerHTML =
+'';
 
-    $('times').innerHTML =
-      '<div class="note">空き時間を確認しています…</div>';
 
-    updateStaff();
+$('times')
+.innerHTML =
 
-    state.date =
-      $('date').value;
+'<div class="note">空き時間を確認しています…</div>';
 
-    state.slotStart = '';
 
-    state.slotEnd = '';
+updateStaff();
 
-    const j =
-      await call(
-        'availability',
-        {
-          date:state.date,
-          staff_id:state.staffId
-        }
-      );
 
-    const rows =
-      j.data || [];
+state.date =
+$('date').value;
 
-    $('times').innerHTML = '';
 
-    rows.forEach(x => {
+state.slotStart =
+'';
 
-      const full =
-        Number(x.total_bookings) >= 2;
 
-      const off =
-        full ||
-        x.staff_booked ||
-        x.blocked;
+state.slotEnd =
+'';
 
-      const d =
-        document.createElement('div');
 
-      d.className =
-        'time' +
-        (off ? ' busy' : '');
+const j =
 
-      let status =
-        'ご予約可能';
+await call(
+  'availability',
+  {
+    date:
+    state.date,
 
-      if(off){
+    staff_id:
+    state.staffId
+  }
+);
 
-        status =
-          '受付終了';
 
-      }else if(
-        Number(x.total_bookings) === 1
-      ){
+const rows =
+j.data
+||
+[];
 
-        status =
-          '残り1枠';
 
-      }
+$('times')
+.innerHTML =
+'';
 
-      d.innerHTML =
-        `<strong>
-          ${fmt(x.slot_start)}
-          〜
-          ${fmt(x.slot_end)}
-        </strong>
-        <small>
-          ${status}
-        </small>`;
 
-      if(!off){
+rows.forEach(
+  x => {
 
-        d.onclick = () => {
+    const full =
+    Number(
+      x.total_bookings
+    )
+    >=
+    2;
 
-          document
-            .querySelectorAll('.time')
-            .forEach(
-              e =>
-              e.classList.remove('selected')
-            );
 
-          d.classList.add('selected');
+    const off =
+    full
+    ||
+    x.staff_booked
+    ||
+    x.blocked;
 
-          state.slotStart =
-            x.slot_start;
 
-          state.slotEnd =
-            x.slot_end;
+    const d =
+    document.createElement(
+      'div'
+    );
 
-        };
 
-      }
+    d.className =
+    'time'
+    +
+    (
+      off
+      ?
+      ' busy'
+      :
+      ''
+    );
 
-      $('times').appendChild(d);
 
-    });
+    const status =
 
-    if(!rows.length){
+    off
+    ?
+    '受付終了'
+    :
+    (
+      Number(
+        x.total_bookings
+      )
+      ===
+      1
+      ?
+      '残り1枠'
+      :
+      'ご予約可能'
+    );
 
-      $('times').innerHTML =
-        '<div class="note">この日のご案内可能枠はありません。</div>';
+
+    d.innerHTML =
+
+    `<strong>
+      ${hourLabel(x.slot_start)}
+    </strong>
+
+    <small>
+      ${status}
+    </small>`;
+
+
+    if(
+      !off
+    ){
+
+      d.onclick =
+      () => {
+
+        document
+        .querySelectorAll(
+          '.time'
+        )
+        .forEach(
+          e =>
+          e.classList
+          .remove(
+            'selected'
+          )
+        );
+
+
+        d.classList
+        .add(
+          'selected'
+        );
+
+
+        state.slotStart =
+        x.slot_start;
+
+
+        state.slotEnd =
+        x.slot_end;
+
+      };
 
     }
 
-  }catch(e){
 
-    $('times').innerHTML = '';
-
-    $('availabilityError').innerHTML =
-      `<div class="error">
-        ${esc(e.message)}
-      </div>`;
+    $('times')
+    .appendChild(
+      d
+    );
 
   }
+);
+
+
+if(
+  !rows.length
+){
+
+$('times')
+.innerHTML =
+
+'<div class="note">この日のご案内可能枠はありません。</div>';
+
+}
+
+}catch(e){
+
+$('times')
+.innerHTML =
+'';
+
+
+$('availabilityError')
+.innerHTML =
+
+`<div class="error">
+${esc(e.message)}
+</div>`;
+
+}
 
 }
 
 
 function next1(){
 
-  if(
-    !state.staffId ||
-    !$('date').value ||
-    !state.slotStart
-  ){
+if(
+  !state.staffId
+  ||
+  !$('date').value
+  ||
+  !state.slotStart
+){
 
-    alert(
-      '担当スタッフ・日付・時間を選んでください'
-    );
+alert(
+  '担当スタッフ・日付・時間を選んでください'
+);
 
-    return;
+return;
 
-  }
+}
 
-  state.date =
-    $('date').value;
 
-  goPage(2);
+state.date =
+$('date').value;
+
+
+goPage(
+  2
+);
 
 }
 
 
 function next2(){
 
-  if(
-    !$('name').value.trim() ||
-    !$('phone').value.trim()
-  ){
+if(
+  !$('name')
+  .value
+  .trim()
+  ||
+  !$('phone')
+  .value
+  .trim()
+){
 
-    alert(
-      'お名前と電話番号を入力してください'
-    );
+alert(
+  'お名前と電話番号を入力してください'
+);
 
-    return;
+return;
 
-  }
+}
 
-  $('summary').innerHTML =
 
-    `<b>
-      ${esc(state.date)}
-      　
-      ${fmt(state.slotStart)}
-      〜
-      ${fmt(state.slotEnd)}
-    </b><br>
+$('summary')
+.innerHTML =
 
-    担当：
-    ${esc(state.staffName)}
-    <br>
+`<b>
+${esc(state.date)}
+　
+${hourLabel(state.slotStart)}
+</b>
 
-    ご予約枠：1時間
-    <br>
+<br>
 
-    <span style="color:#777">
-      ※その後1時間は準備時間として確保します
-    </span>
+担当：
+${esc(state.staffName)}
 
-    <br><br>
+<br>
 
-    お名前：
-    ${esc($('name').value)}
+確保時間：
+${fmt(state.slotStart)}
+〜
+${fmt(state.slotEnd)}
+（2時間）
 
-    <br>
+<br><br>
 
-    電話：
-    ${esc($('phone').value)}
+お名前：
+${esc($('name').value)}
 
-    ${
-      $('email').value
-      ?
-      `<br>
-      メール：
-      ${esc($('email').value)}`
-      :
-      ''
-    }
+<br>
 
-    ${
-      $('memo').value
-      ?
-      `<br>
-      ご要望：
-      ${esc($('memo').value)}`
-      :
-      ''
-    }`;
+電話：
+${esc($('phone').value)}
 
-  goPage(3);
+${
+  $('email').value
+  ?
+  '<br>メール：'
+  +
+  esc(
+    $('email').value
+  )
+  :
+  ''
+}
+
+${
+  $('memo').value
+  ?
+  '<br>ご要望：'
+  +
+  esc(
+    $('memo').value
+  )
+  :
+  ''
+}`;
+
+
+goPage(
+  3
+);
 
 }
 
 
 async function confirmBooking(){
 
-  const b =
-    $('confirmBtn');
+const b =
+$('confirmBtn');
 
-  $('submitError').innerHTML = '';
 
-  b.disabled = true;
+$('submitError')
+.innerHTML =
+'';
 
-  b.textContent =
-    'ご予約を確定しています…';
 
-  try{
+b.disabled =
+true;
 
-    await call(
-      'book',
-      {
-        date:state.date,
-        slot_start:state.slotStart,
-        staff_id:state.staffId,
-        customer_name:$('name').value,
-        phone:$('phone').value,
-        email:$('email').value,
-        memo:$('memo').value
-      }
-    );
 
-    $('page3')
-      .classList
-      .add('hidden');
+b.textContent =
+'ご予約を確定しています…';
 
-    $('done')
-      .classList
-      .remove('hidden');
 
-  }catch(e){
+try{
 
-    $('submitError').innerHTML =
-      `<div class="error">
-        ${esc(e.message)}
-      </div>`;
+await call(
+  'book',
+  {
+    date:
+    state.date,
 
-    await loadAvailability();
+    slot_start:
+    state.slotStart,
 
-  }finally{
+    staff_id:
+    state.staffId,
 
-    b.disabled = false;
+    customer_name:
+    $('name').value,
 
-    b.textContent =
-      'この内容で予約する';
+    phone:
+    $('phone').value,
 
+    email:
+    $('email').value,
+
+    memo:
+    $('memo').value
   }
+);
+
+
+$('page3')
+.classList
+.add(
+  'hidden'
+);
+
+
+$('done')
+.classList
+.remove(
+  'hidden'
+);
+
+}catch(e){
+
+$('submitError')
+.innerHTML =
+
+`<div class="error">
+${esc(e.message)}
+</div>`;
+
+
+await loadAvailability();
+
+}finally{
+
+b.disabled =
+false;
+
+
+b.textContent =
+'この内容で予約する';
+
+}
 
 }
 
 
 function resetForm(){
 
-  [
-    'name',
-    'phone',
-    'email',
-    'memo'
-  ].forEach(
-    id =>
-    $(id).value = ''
-  );
+[
+  'name',
+  'phone',
+  'email',
+  'memo'
+]
+.forEach(
+  id =>
+  $(id).value =
+  ''
+);
 
-  $('date').value =
-    today();
 
-  state.slotStart = '';
+$('date').value =
+today();
 
-  state.slotEnd = '';
 
-  goPage(1);
+state.slotStart =
+'';
 
-  loadAvailability();
+
+state.slotEnd =
+'';
+
+
+goPage(
+  1
+);
+
+
+loadAvailability();
 
 }
 
 
 $('date').min =
-  today();
+today();
+
 
 $('date').value =
-  today();
+today();
+
 
 $('staff')
-  .addEventListener(
-    'change',
-    loadAvailability
-  );
+.addEventListener(
+  'change',
+  loadAvailability
+);
+
 
 $('date')
-  .addEventListener(
-    'change',
-    loadAvailability
-  );
+.addEventListener(
+  'change',
+  loadAvailability
+);
 
 
 loadStaff()
-  .catch(
-    e =>
-    $('availabilityError').innerHTML =
-      `<div class="error">
-        ${esc(e.message)}
-      </div>`
-  );
+.catch(
+  e =>
+  $('availabilityError')
+  .innerHTML =
+  `<div class="error">
+  ${esc(e.message)}
+  </div>`
+);
 
 </script>
 
