@@ -19,7 +19,9 @@
   --danger:#9b4c4c;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -121,7 +123,9 @@ label{
   margin:12px 0 5px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:12px;
   border:1px solid #d9d0c5;
@@ -140,7 +144,8 @@ textarea{
   line-height:1.7;
 }
 
-.error,.ok{
+.error,
+.ok{
   font-size:13px;
   padding:10px;
   border-radius:12px;
@@ -224,11 +229,6 @@ textarea{
   font-size:10px;
 }
 
-.full{
-  background:#f4dddd;
-  color:#8c4545;
-}
-
 .booking,
 .block{
   border-top:1px solid var(--line);
@@ -291,12 +291,6 @@ textarea{
   color:#333;
 }
 
-.legend{
-  font-size:11px;
-  color:var(--muted);
-  padding:10px 0;
-}
-
 @media(max-width:560px){
   .day{
     min-height:60px;
@@ -315,9 +309,17 @@ textarea{
 <div class="wrap">
 
 <div class="top">
+
   <div>
-    <div class="eyebrow">SALON STAFF ONLY</div>
-    <h1>予約管理</h1>
+
+    <div class="eyebrow">
+      SALON STAFF ONLY
+    </div>
+
+    <h1>
+      予約管理
+    </h1>
+
   </div>
 
   <button
@@ -327,31 +329,42 @@ textarea{
   >
     ログアウト
   </button>
+
 </div>
 
 
-<section id="login" class="card">
+<section
+  id="login"
+  class="card"
+>
 
-  <h2>スタッフログイン</h2>
+<h2>
+  スタッフログイン
+</h2>
 
-  <label>管理パスワード</label>
+<label>
+  管理パスワード
+</label>
 
-  <input
-    id="password"
-    type="password"
-    autocomplete="current-password"
-  >
+<input
+  id="password"
+  type="password"
+  autocomplete="current-password"
+>
 
-  <div id="loginMsg"></div>
+<div id="loginMsg"></div>
 
-  <button onclick="login()">
-    ログイン
-  </button>
+<button onclick="login()">
+  ログイン
+</button>
 
 </section>
 
 
-<div id="app" class="hidden">
+<div
+  id="app"
+  class="hidden"
+>
 
 <div class="tabs">
 
@@ -370,55 +383,65 @@ textarea{
 </div>
 
 
-<section id="res" class="card">
+<section
+  id="res"
+  class="card"
+>
 
-  <div class="calhead">
+<div class="calhead">
 
-    <button
-      class="ghost"
-      onclick="moveMonth(-1)"
-    >
-      ‹
-    </button>
+<button
+  class="ghost"
+  onclick="moveMonth(-1)"
+>
+  ‹
+</button>
 
-    <div
-      id="monthLabel"
-      class="month"
-    ></div>
+<div
+  id="monthLabel"
+  class="month"
+></div>
 
-    <button
-      class="ghost"
-      onclick="moveMonth(1)"
-    >
-      ›
-    </button>
+<button
+  class="ghost"
+  onclick="moveMonth(1)"
+>
+  ›
+</button>
 
-  </div>
+</div>
 
-  <div class="week">
-    <div>日</div>
-    <div>月</div>
-    <div>火</div>
-    <div>水</div>
-    <div>木</div>
-    <div>金</div>
-    <div>土</div>
-  </div>
 
-  <div
-    id="calendar"
-    class="calendar"
-  ></div>
+<div class="week">
 
-  <div class="legend">
-    予約は1時間枠。各予約の次の1時間は準備時間として自動確保されます。
-  </div>
+<div>日</div>
+<div>月</div>
+<div>火</div>
+<div>水</div>
+<div>木</div>
+<div>金</div>
+<div>土</div>
 
-  <h2 id="dayTitle">
-    予約一覧
-  </h2>
+</div>
 
-  <div id="bookingList"></div>
+
+<div
+  id="calendar"
+  class="calendar"
+></div>
+
+
+<p class="note">
+予約開始時刻から2時間を確保します。
+同時間帯はサロン全体で最大2名までです。
+</p>
+
+
+<h2 id="dayTitle">
+予約一覧
+</h2>
+
+<div id="bookingList"></div>
 
 </section>
 
@@ -428,114 +451,132 @@ textarea{
   class="card hidden"
 >
 
-  <h2>
-    予約不可・お休み設定
-  </h2>
+<h2>
+予約不可・お休み設定
+</h2>
 
-  <label>日付</label>
-  <input
-    id="blockDate"
-    type="date"
-  >
 
-  <label>対象</label>
-  <select id="blockStaff"></select>
+<label>
+日付
+</label>
 
-  <label>設定</label>
+<input
+  id="blockDate"
+  type="date"
+>
 
-  <select
-    id="blockType"
-    onchange="toggleSlot()"
-  >
 
-    <option value="slot">
-      1時間だけ予約不可
-    </option>
+<label>
+対象
+</label>
 
-    <option value="day">
-      1日お休み
-    </option>
+<select id="blockStaff"></select>
 
-  </select>
 
-  <div id="slotWrap">
+<label>
+設定
+</label>
 
-    <label>時間</label>
+<select
+  id="blockType"
+  onchange="toggleSlot()"
+>
 
-    <select id="blockSlot">
+<option value="slot">
+1時間だけ予約不可
+</option>
 
-      <option value="10:00:00|11:00:00">
-        10:00〜11:00
-      </option>
+<option value="day">
+1日お休み
+</option>
 
-      <option value="11:00:00|12:00:00">
-        11:00〜12:00
-      </option>
+</select>
 
-      <option value="12:00:00|13:00:00">
-        12:00〜13:00
-      </option>
 
-      <option value="13:00:00|14:00:00">
-        13:00〜14:00
-      </option>
+<div id="slotWrap">
 
-      <option value="14:00:00|15:00:00">
-        14:00〜15:00
-      </option>
+<label>
+時間
+</label>
 
-      <option value="15:00:00|16:00:00">
-        15:00〜16:00
-      </option>
+<select id="blockSlot">
 
-      <option value="16:00:00|17:00:00">
-        16:00〜17:00
-      </option>
+<option value="10:00:00|11:00:00">
+10時〜11時
+</option>
 
-      <option value="17:00:00|18:00:00">
-        17:00〜18:00
-      </option>
+<option value="11:00:00|12:00:00">
+11時〜12時
+</option>
 
-      <option value="18:00:00|19:00:00">
-        18:00〜19:00
-      </option>
+<option value="12:00:00|13:00:00">
+12時〜13時
+</option>
 
-      <option value="19:00:00|20:00:00">
-        19:00〜20:00
-      </option>
+<option value="13:00:00|14:00:00">
+13時〜14時
+</option>
 
-      <option value="20:00:00|21:00:00">
-        20:00〜21:00
-      </option>
+<option value="14:00:00|15:00:00">
+14時〜15時
+</option>
 
-    </select>
+<option value="15:00:00|16:00:00">
+15時〜16時
+</option>
 
-  </div>
+<option value="16:00:00|17:00:00">
+16時〜17時
+</option>
 
-  <label>
-    理由（任意）
-  </label>
+<option value="17:00:00|18:00:00">
+17時〜18時
+</option>
 
-  <input
-    id="blockReason"
-    maxlength="120"
-    placeholder="例：外出・研修・お休み"
-  >
+<option value="18:00:00|19:00:00">
+18時〜19時
+</option>
 
-  <div id="blockMsg"></div>
+<option value="19:00:00|20:00:00">
+19時〜20時
+</option>
 
-  <button
-    class="gold"
-    onclick="addBlock()"
-  >
-    設定する
-  </button>
+<option value="20:00:00|21:00:00">
+20時〜21時
+</option>
 
-  <h2>
-    設定済み
-  </h2>
+</select>
 
-  <div id="blockList"></div>
+</div>
+
+
+<label>
+理由（任意）
+</label>
+
+<input
+  id="blockReason"
+  maxlength="120"
+  placeholder="例：外出・研修・お休み"
+>
+
+
+<div id="blockMsg"></div>
+
+
+<button
+  class="gold"
+  onclick="addBlock()"
+>
+設定する
+</button>
+
+
+<h2>
+設定済み
+</h2>
+
+<div id="blockList"></div>
 
 </section>
 
@@ -545,24 +586,24 @@ textarea{
   class="card hidden"
 >
 
-  <h2>
-    管理パスワード変更
-  </h2>
+<h2>
+管理パスワード変更
+</h2>
 
-  <label>
-    新しいパスワード（10文字以上）
-  </label>
+<label>
+新しいパスワード（10文字以上）
+</label>
 
-  <input
-    id="newPassword"
-    type="password"
-  >
+<input
+  id="newPassword"
+  type="password"
+>
 
-  <div id="passwordMsg"></div>
+<div id="passwordMsg"></div>
 
-  <button onclick="changePassword()">
-    変更する
-  </button>
+<button onclick="changePassword()">
+変更する
+</button>
 
 </section>
 
@@ -582,98 +623,122 @@ textarea{
   class="close"
   onclick="closeModal()"
 >
-  閉じる
+閉じる
 </button>
 
+
 <h2>
-  予約を編集
+予約を編集
 </h2>
+
 
 <input
   id="editId"
   type="hidden"
 >
 
-<label>日付</label>
+
+<label>
+日付
+</label>
 
 <input
   id="editDate"
   type="date"
 >
 
-<label>時間</label>
+
+<label>
+予約開始
+</label>
 
 <select id="editSlot">
 
 <option value="10:00:00">
-10:00〜11:00
+10時〜
 </option>
 
 <option value="11:00:00">
-11:00〜12:00
+11時〜
 </option>
 
 <option value="12:00:00">
-12:00〜13:00
+12時〜
 </option>
 
 <option value="13:00:00">
-13:00〜14:00
+13時〜
 </option>
 
 <option value="14:00:00">
-14:00〜15:00
+14時〜
 </option>
 
 <option value="15:00:00">
-15:00〜16:00
+15時〜
 </option>
 
 <option value="16:00:00">
-16:00〜17:00
+16時〜
 </option>
 
 <option value="17:00:00">
-17:00〜18:00
+17時〜
 </option>
 
 <option value="18:00:00">
-18:00〜19:00
+18時〜
 </option>
 
 <option value="19:00:00">
-19:00〜20:00
+19時〜
 </option>
 
 <option value="20:00:00">
-20:00〜21:00
+20時〜
 </option>
 
 </select>
 
 
-<label>担当</label>
+<label>
+担当
+</label>
 
 <select id="editStaff"></select>
 
 
-<label>お名前</label>
+<label>
+お名前
+</label>
+
 <input id="editName">
 
 
-<label>電話</label>
+<label>
+電話
+</label>
+
 <input id="editPhone">
 
 
-<label>メール</label>
+<label>
+メール
+</label>
+
 <input id="editEmail">
 
 
-<label>メモ</label>
+<label>
+メモ
+</label>
+
 <textarea id="editMemo"></textarea>
 
 
-<label>状態</label>
+<label>
+状態
+</label>
 
 <select id="editStatus">
 
@@ -690,14 +755,16 @@ textarea{
 
 <div id="editMsg"></div>
 
+
 <button
   class="gold"
   onclick="saveEdit()"
 >
-  保存
+保存
 </button>
 
 </div>
+
 </div>
 
 
@@ -706,18 +773,29 @@ textarea{
 const API =
 'https://xvgrbzpnwnlqlxayvphv.supabase.co/functions/v1/salon-api';
 
+
 const $ =
-id => document.getElementById(id);
+id =>
+document.getElementById(id);
+
 
 let staff = [];
+
 let bookings = [];
-let view = new Date();
-let selected = '';
+
+let view =
+new Date();
+
+let selected =
+'';
 
 
 function esc(s){
 
-return String(s ?? '').replace(
+return String(
+  s ?? ''
+)
+.replace(
   /[&<>"']/g,
   m => ({
     '&':'&amp;',
@@ -733,7 +811,13 @@ return String(s ?? '').replace(
 
 function fmt(t){
 
-return String(t || '').slice(0,5);
+return String(
+  t || ''
+)
+.slice(
+  0,
+  5
+);
 
 }
 
@@ -742,10 +826,26 @@ function ymd(d){
 
 return (
   d.getFullYear()
-  + '-'
-  + String(d.getMonth()+1).padStart(2,'0')
-  + '-'
-  + String(d.getDate()).padStart(2,'0')
+  +
+  '-'
+  +
+  String(
+    d.getMonth()+1
+  )
+  .padStart(
+    2,
+    '0'
+  )
+  +
+  '-'
+  +
+  String(
+    d.getDate()
+  )
+  .padStart(
+    2,
+    '0'
+  )
 );
 
 }
@@ -755,8 +855,11 @@ function pw(){
 
 return (
   sessionStorage
-    .getItem('salonAdminPassword')
-  || ''
+  .getItem(
+    'salonAdminPassword'
+  )
+  ||
+  ''
 );
 
 }
@@ -774,28 +877,42 @@ await fetch(
     method:'POST',
 
     headers:{
-      'Content-Type':'application/json',
-      'x-admin-password':pw()
+      'Content-Type':
+      'application/json',
+
+      'x-admin-password':
+      pw()
     },
 
-    body:JSON.stringify({
-      action,
-      ...data
-    })
+    body:
+    JSON.stringify(
+      {
+        action,
+        ...data
+      }
+    )
   }
 );
 
 let j = {};
 
 try{
-  j = await r.json();
+
+j =
+await r.json();
+
 }catch{}
 
-if(!r.ok){
 
-  throw new Error(
-    j.error || '通信エラー'
-  );
+if(
+  !r.ok
+){
+
+throw new Error(
+  j.error
+  ||
+  '通信エラー'
+);
 
 }
 
@@ -851,7 +968,9 @@ function staffName(id){
 return (
   staff.find(
     s =>
-    Number(s.id) === Number(id)
+    Number(s.id)
+    ===
+    Number(id)
   )?.name
   ||
   '未設定'
@@ -863,40 +982,48 @@ return (
 async function login(){
 
 sessionStorage
-  .setItem(
-    'salonAdminPassword',
-    $('password').value
-  );
+.setItem(
+  'salonAdminPassword',
+  $('password').value
+);
 
 try{
 
-  await call('admin_verify');
+await call(
+  'admin_verify'
+);
 
-  $('login')
-    .classList
-    .add('hidden');
+$('login')
+.classList
+.add(
+  'hidden'
+);
 
-  $('app')
-    .classList
-    .remove('hidden');
+$('app')
+.classList
+.remove(
+  'hidden'
+);
 
-  $('logoutBtn')
-    .classList
-    .remove('hidden');
+$('logoutBtn')
+.classList
+.remove(
+  'hidden'
+);
 
-  await loadMonth();
+await loadMonth();
 
 }catch(e){
 
-  sessionStorage
-    .removeItem(
-      'salonAdminPassword'
-    );
+sessionStorage
+.removeItem(
+  'salonAdminPassword'
+);
 
-  msg(
-    'loginMsg',
-    e.message
-  );
+msg(
+  'loginMsg',
+  e.message
+);
 
 }
 
@@ -906,9 +1033,9 @@ try{
 function logout(){
 
 sessionStorage
-  .removeItem(
-    'salonAdminPassword'
-  );
+.removeItem(
+  'salonAdminPassword'
+);
 
 location.reload();
 
@@ -925,15 +1052,19 @@ function showTab(id){
 .forEach(
   x =>
   $(x)
-    .classList
-    .toggle(
-      'hidden',
-      x !== id
-    )
+  .classList
+  .toggle(
+    'hidden',
+    x !== id
+  )
 );
 
-if(id === 'blocks'){
-  loadBlocks();
+if(
+  id === 'blocks'
+){
+
+loadBlocks();
+
 }
 
 }
@@ -949,6 +1080,7 @@ const [
 ] =
 monthRange();
 
+
 const j =
 await call(
   'admin_bookings',
@@ -958,15 +1090,23 @@ await call(
   }
 );
 
+
 bookings =
-j.data || [];
+j.data
+||
+[];
+
 
 staff =
-j.staff || [];
+j.staff
+||
+[];
+
 
 renderStaff();
 
 renderCalendar();
+
 
 if(
   !selected
@@ -976,22 +1116,25 @@ if(
   selected > to
 ){
 
-  selected =
-  ymd(
-    new Date(
-      view.getFullYear(),
-      view.getMonth(),
-      1
-    )
-  );
+selected =
+ymd(
+  new Date(
+    view.getFullYear(),
+    view.getMonth(),
+    1
+  )
+);
 
 }
+
 
 renderDay();
 
 }catch(e){
 
-alert(e.message);
+alert(
+  e.message
+);
 
 }
 
@@ -1007,7 +1150,8 @@ new Date(
   1
 );
 
-selected = '';
+selected =
+'';
 
 loadMonth();
 
@@ -1017,6 +1161,7 @@ loadMonth();
 function renderStaff(){
 
 const options =
+
 staff
 .filter(
   s =>
@@ -1030,10 +1175,14 @@ staff
 )
 .join('');
 
-$('editStaff').innerHTML =
+
+$('editStaff')
+.innerHTML =
 options;
 
-$('blockStaff').innerHTML =
+
+$('blockStaff')
+.innerHTML =
 '<option value="">サロン全体</option>'
 +
 options;
@@ -1049,8 +1198,14 @@ view.getFullYear();
 const m =
 view.getMonth();
 
+
 const first =
-new Date(y,m,1);
+new Date(
+  y,
+  m,
+  1
+);
+
 
 const start =
 new Date(
@@ -1059,13 +1214,21 @@ new Date(
   1-first.getDay()
 );
 
-const today =
-ymd(new Date());
 
-$('monthLabel').textContent =
+const today =
+ymd(
+  new Date()
+);
+
+
+$('monthLabel')
+.textContent =
 `${y}年 ${m+1}月`;
 
-let html = '';
+
+let html =
+'';
+
 
 for(
   let i=0;
@@ -1074,16 +1237,24 @@ for(
 ){
 
 const d =
-new Date(start);
+new Date(
+  start
+);
+
 
 d.setDate(
   start.getDate()+i
 );
 
+
 const date =
-ymd(d);
+ymd(
+  d
+);
+
 
 const arr =
+
 bookings.filter(
   b =>
   b.booking_date === date
@@ -1091,30 +1262,9 @@ bookings.filter(
   b.status === 'confirmed'
 );
 
-const byHour = {};
-
-arr.forEach(
-  b => {
-
-    byHour[b.slot_start] =
-    (
-      byHour[b.slot_start]
-      ||
-      0
-    )
-    +
-    1;
-
-  }
-);
-
-const full =
-Object.values(byHour)
-  .some(
-    n => n >= 2
-  );
 
 html +=
+
 `<div
 class="day
 ${d.getMonth()===m?'':'other'}
@@ -1130,9 +1280,8 @@ ${d.getDate()}
 ${
 arr.length
 ?
-`<span class="count ${full?'full':''}">
+`<span class="count">
 ${arr.length}件
-${full?'・満席':''}
 </span>`
 :
 ''
@@ -1142,7 +1291,9 @@ ${full?'・満席':''}
 
 }
 
-$('calendar').innerHTML =
+
+$('calendar')
+.innerHTML =
 html;
 
 }
@@ -1153,8 +1304,11 @@ function selectDay(date){
 selected =
 date;
 
-$('blockDate').value =
+
+$('blockDate')
+.value =
 date;
+
 
 renderCalendar();
 
@@ -1166,26 +1320,39 @@ renderDay();
 function renderDay(){
 
 const arr =
+
 bookings.filter(
   b =>
   b.booking_date === selected
 );
 
-$('dayTitle').textContent =
+
+$('dayTitle')
+.textContent =
 `${selected} の予約`;
 
-if(!arr.length){
 
-$('bookingList').innerHTML =
+if(
+  !arr.length
+){
+
+$('bookingList')
+.innerHTML =
+
 '<p class="note">予約はありません。</p>';
 
 return;
 
 }
 
-$('bookingList').innerHTML =
-arr.map(
+
+$('bookingList')
+.innerHTML =
+
+arr
+.map(
 b =>
+
 `<div class="booking ${b.status==='cancelled'?'cancelled':''}">
 
 <b>
@@ -1207,10 +1374,31 @@ ${b.status==='cancelled'?'キャンセル':'予約確定'}
 </span>
 
 <p>
+
 ${esc(b.phone)}
-${b.email?'<br>'+esc(b.email):''}
-${b.memo?'<br>メモ：'+esc(b.memo):''}
+
+${
+b.email
+?
+'<br>'
++
+esc(b.email)
+:
+''
+}
+
+${
+b.memo
+?
+'<br>メモ：'
++
+esc(b.memo)
+:
+''
+}
+
 </p>
+
 
 <div class="actions">
 
@@ -1220,6 +1408,7 @@ onclick="openEdit(${b.id})"
 >
 編集
 </button>
+
 
 ${
 b.status==='confirmed'
@@ -1237,6 +1426,7 @@ onclick="cancelBooking(${b.id})"
 </div>
 
 </div>`
+
 )
 .join('');
 
@@ -1246,48 +1436,78 @@ onclick="cancelBooking(${b.id})"
 function openEdit(id){
 
 const b =
+
 bookings.find(
   x =>
-  Number(x.id) === Number(id)
+  Number(x.id)
+  ===
+  Number(id)
 );
 
-if(!b)return;
 
-$('editId').value =
+if(
+  !b
+){
+  return;
+}
+
+
+$('editId')
+.value =
 b.id;
 
-$('editDate').value =
+
+$('editDate')
+.value =
 b.booking_date;
 
-$('editSlot').value =
+
+$('editSlot')
+.value =
 b.slot_start;
 
-$('editStaff').value =
+
+$('editStaff')
+.value =
 b.staff_id;
 
-$('editName').value =
+
+$('editName')
+.value =
 b.customer_name;
 
-$('editPhone').value =
+
+$('editPhone')
+.value =
 b.phone;
 
-$('editEmail').value =
+
+$('editEmail')
+.value =
 b.email || '';
 
-$('editMemo').value =
+
+$('editMemo')
+.value =
 b.memo || '';
 
-$('editStatus').value =
+
+$('editStatus')
+.value =
 b.status;
+
 
 msg(
   'editMsg',
   ''
 );
 
+
 $('modal')
-  .classList
-  .remove('hidden');
+.classList
+.remove(
+  'hidden'
+);
 
 }
 
@@ -1295,8 +1515,10 @@ $('modal')
 function closeModal(){
 
 $('modal')
-  .classList
-  .add('hidden');
+.classList
+.add(
+  'hidden'
+);
 
 }
 
@@ -1308,7 +1530,9 @@ try{
 await call(
   'admin_update_booking',
   {
-    id:Number(
+
+    id:
+    Number(
       $('editId').value
     ),
 
@@ -1337,8 +1561,10 @@ await call(
 
     status:
     $('editStatus').value
+
   }
 );
+
 
 msg(
   'editMsg',
@@ -1346,11 +1572,13 @@ msg(
   true
 );
 
+
 await loadMonth();
+
 
 setTimeout(
   closeModal,
-  450
+  400
 );
 
 }catch(e){
@@ -1372,8 +1600,11 @@ if(
     'この予約をキャンセルにしますか？'
   )
 ){
-  return;
+
+return;
+
 }
+
 
 try{
 
@@ -1383,6 +1614,7 @@ await call(
     id
   }
 );
+
 
 await loadMonth();
 
@@ -1400,11 +1632,11 @@ alert(
 function toggleSlot(){
 
 $('slotWrap')
-  .classList
-  .toggle(
-    'hidden',
-    $('blockType').value === 'day'
-  );
+.classList
+.toggle(
+  'hidden',
+  $('blockType').value === 'day'
+);
 
 }
 
@@ -1416,14 +1648,17 @@ try{
 const all =
 $('blockType').value === 'day';
 
+
 const parts =
 $('blockSlot')
-  .value
-  .split('|');
+.value
+.split('|');
+
 
 await call(
   'admin_add_block',
   {
+
     block_date:
     $('blockDate').value,
 
@@ -1449,8 +1684,10 @@ await call(
 
     reason:
     $('blockReason').value
+
   }
 );
+
 
 msg(
   'blockMsg',
@@ -1458,8 +1695,11 @@ msg(
   true
 );
 
-$('blockReason').value =
+
+$('blockReason')
+.value =
 '';
+
 
 await loadBlocks();
 
@@ -1485,6 +1725,7 @@ const [
 ] =
 monthRange();
 
+
 const j =
 await call(
   'admin_blocks',
@@ -1494,23 +1735,35 @@ await call(
   }
 );
 
-if(j.staff?.length){
 
-  staff =
-  j.staff;
+if(
+  j.staff?.length
+){
 
-  renderStaff();
+staff =
+j.staff;
+
+renderStaff();
 
 }
 
-const list =
-j.data || [];
 
-$('blockList').innerHTML =
+const list =
+j.data
+||
+[];
+
+
+$('blockList')
+.innerHTML =
+
 list.length
 ?
-list.map(
+
+list
+.map(
 x =>
+
 `<div class="block">
 
 <b>
@@ -1555,14 +1808,20 @@ onclick="removeBlock(${x.id})"
 </button>
 
 </div>`
+
 )
 .join('')
+
 :
+
 '<p class="note">設定はありません。</p>';
+
 
 }catch(e){
 
-$('blockList').innerHTML =
+$('blockList')
+.innerHTML =
+
 `<div class="error">
 ${esc(e.message)}
 </div>`;
@@ -1579,8 +1838,11 @@ if(
     'この設定を解除しますか？'
   )
 ){
-  return;
+
+return;
+
 }
+
 
 try{
 
@@ -1590,6 +1852,7 @@ await call(
     id
   }
 );
+
 
 await loadBlocks();
 
@@ -1611,19 +1874,25 @@ try{
 await call(
   'admin_change_password',
   {
+
     new_password:
     $('newPassword').value
+
   }
 );
 
-sessionStorage
-  .setItem(
-    'salonAdminPassword',
-    $('newPassword').value
-  );
 
-$('newPassword').value =
+sessionStorage
+.setItem(
+  'salonAdminPassword',
+  $('newPassword').value
+);
+
+
+$('newPassword')
+.value =
 '';
+
 
 msg(
   'passwordMsg',
@@ -1643,41 +1912,65 @@ msg(
 }
 
 
-$('blockDate').value =
-ymd(new Date());
+$('blockDate')
+.value =
+ymd(
+  new Date()
+);
 
-$('blockDate').min =
-ymd(new Date());
+
+$('blockDate')
+.min =
+ymd(
+  new Date()
+);
 
 
-if(pw()){
+if(
+  pw()
+){
 
-call('admin_verify')
+call(
+  'admin_verify'
+)
+
 .then(
   () => {
 
-    $('login')
-      .classList
-      .add('hidden');
+$('login')
+.classList
+.add(
+  'hidden'
+);
 
-    $('app')
-      .classList
-      .remove('hidden');
 
-    $('logoutBtn')
-      .classList
-      .remove('hidden');
+$('app')
+.classList
+.remove(
+  'hidden'
+);
 
-    loadMonth();
+
+$('logoutBtn')
+.classList
+.remove(
+  'hidden'
+);
+
+
+loadMonth();
 
   }
 )
+
 .catch(
   () =>
-  sessionStorage
-    .removeItem(
-      'salonAdminPassword'
-    )
+
+sessionStorage
+.removeItem(
+  'salonAdminPassword'
+)
+
 );
 
 }
